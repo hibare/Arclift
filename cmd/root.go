@@ -1,68 +1,91 @@
 package cmd
 
 import (
+	"context"
 	"log/slog"
 	"os"
 	"time"
 
 	"github.com/go-co-op/gocron"
-	commonLogger "github.com/hibare/GoCommon/v2/pkg/logger"
-	"github.com/hibare/GoS3Backup/cmd/backup"
-	configCmd "github.com/hibare/GoS3Backup/cmd/config"
-	intBackup "github.com/hibare/GoS3Backup/internal/backup"
+	cmdBackup "github.com/hibare/GoS3Backup/cmd/backup"
+	"github.com/hibare/GoS3Backup/cmd/common"
+	cmdConfig "github.com/hibare/GoS3Backup/cmd/config"
 	"github.com/hibare/GoS3Backup/internal/config"
 	"github.com/hibare/GoS3Backup/internal/constants"
 	"github.com/hibare/GoS3Backup/internal/version"
 	"github.com/spf13/cobra"
 )
 
-var rootCmd = &cobra.Command{
+var (
+	ConfigPath string
+)
+
+var RootCmd = &cobra.Command{
 	Use:     "GoS3Backup",
 	Short:   "Application to backup directories to S3",
 	Long:    "",
 	Version: version.CurrentVersion,
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
+		ctx := cmd.Context()
 
 		s := gocron.NewScheduler(time.UTC)
 
-		// Schedule backup job
-		if _, err := s.Cron(config.Current.Backup.Cron).Do(func() {
-			intBackup.Backup()
-			intBackup.PurgeOldBackups()
-		}); err != nil {
-			slog.Error("Error setting up cron")
+		bm, err := common.NewBackupManager(ctx, ConfigPath)
+		if err != nil {
+			return err
 		}
-		slog.Info("Scheduled backup job", "cron", config.Current.Backup.Cron)
+
+		// Schedule backup job
+		if _, bcErr := s.Cron(config.Current.Backup.Cron).Do(func() {
+			if baErr := bm.Backup(ctx); baErr != nil {
+				slog.ErrorContext(ctx, "Error backing up", "error", baErr)
+			}
+			if bpErr := bm.PurgeOldBackups(ctx); bpErr != nil {
+				slog.ErrorContext(ctx, "Error purging old backups", "error", bpErr)
+			}
+		}); bcErr != nil {
+			slog.ErrorContext(ctx, "Error setting up cron", "error", bcErr)
+			return bcErr
+		}
+		slog.InfoContext(ctx, "Scheduled backup job", "cron", config.Current.Backup.Cron)
 
 		// Schedule version check job
-		if _, err := s.Cron(constants.VersionCheckCron).Do(func() {
-			version.V.CheckUpdate()
-		}); err != nil {
-			slog.Warn("Failed to schedule version check job")
+		if _, vcErr := s.Cron(constants.VersionCheckCron).Do(func() {
+			if vErr := version.V.CheckUpdate(); vErr != nil {
+				slog.ErrorContext(ctx, "Error checking for updates", "error", vErr)
+			}
+		}); vcErr != nil {
+			slog.WarnContext(ctx, "Failed to schedule version check job", "error", vcErr)
 		}
 
 		s.StartBlocking()
+		return nil
 	},
 }
 
 func Execute() {
-	err := rootCmd.Execute()
+	err := RootCmd.Execute()
 	if err != nil {
 		os.Exit(1)
 	}
 }
 
 func init() {
-	rootCmd.AddCommand(configCmd.ConfigCmd)
-	rootCmd.AddCommand(backup.BackupCmd)
+	ctx := context.Background()
+	RootCmd.SetContext(ctx)
 
-	cobra.OnInitialize(commonLogger.InitDefaultLogger, config.LoadConfig)
+	// Add global flags
+	RootCmd.PersistentFlags().StringVarP(&ConfigPath, "config", "c", "", "Path to config file")
 
-	initialVersionCheck := func() {
-		version.V.CheckUpdate()
-		if version.V.NewVersionAvailable {
+	// Add commands
+	RootCmd.AddCommand(cmdConfig.ConfigCmd)
+	RootCmd.AddCommand(cmdBackup.BackupCmd)
+
+	// Perform initial version check
+	go func() {
+		_ = version.V.CheckUpdate()
+		if version.V.IsUpdateAvailable() {
 			slog.Info(version.V.GetUpdateNotification())
 		}
-	}
-	go initialVersionCheck()
+	}()
 }

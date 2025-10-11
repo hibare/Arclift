@@ -15,11 +15,15 @@
     "bindir",
     "goarch",
     "goarm",
+    "gocron",
     "hibare",
+    "Iface",
     "incpatch",
     "ldflags",
+    "mapstructure",
     "nfpms",
     "preremove",
+    "stretchr",
     "tolower",
     "trimsuffix"
   ]

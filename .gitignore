@@ -5,3 +5,4 @@ etc/
 *.drawio
 gos3backup
 dist/
+.ignored/
