@@ -2,33 +2,43 @@ package backup
 
 import (
 	"fmt"
+	"log/slog"
 	"os"
 
-	"github.com/hibare/GoS3Backup/internal/backup"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/spf13/cobra"
 )
 
-// listCmd represents the list command
+const (
+	backupKeyColumnWidthMin = 20
+	backupKeyColumnWidthMax = 64
+)
+
+// listCmd represents the list command.
 var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List backups",
 	Long:  "",
-	Run: func(cmd *cobra.Command, args []string) {
-		backups, err := backup.ListBackups()
+	RunE: func(cmd *cobra.Command, args []string) error {
+		ctx := cmd.Context()
+
+		backups, err := bm.ListBackups(ctx)
 		if err != nil {
-			panic(err)
-		} else if len(backups) <= 0 {
-			fmt.Println("No backups found")
+			slog.ErrorContext(ctx, "error listing backups", "error", err)
+			return err
+		}
+		if len(backups) == 0 {
+			slog.InfoContext(ctx, "No backups found")
+			return nil
 		} else {
-			fmt.Printf("\nTotal backups %d\n", len(backups))
+			fmt.Printf("\nTotal backups %d\n", len(backups)) //nolint:forbidigo // CLI output requires fmt.Printf
 			t := table.NewWriter()
 			t.SetOutputMirror(os.Stdout)
 			t.SetColumnConfigs([]table.ColumnConfig{
 				{
 					Name:     "Backup Key",
-					WidthMin: 20,
-					WidthMax: 64,
+					WidthMin: backupKeyColumnWidthMin,
+					WidthMax: backupKeyColumnWidthMax,
 				},
 			})
 			t.AppendHeader(table.Row{"#", "Backup Key"})
@@ -41,5 +51,6 @@ var listCmd = &cobra.Command{
 
 			t.Render()
 		}
+		return nil
 	},
 }

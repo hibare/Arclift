@@ -25,7 +25,7 @@ builds:
       - "6"
       - "7"
     ldflags:
-      - -s -w -X github.com/hibare/GoS3Backup/internal/version.CurrentVersion={{.Version}}
+      - -s -w -X github.com/hibare/arclift/internal/version.CurrentVersion={{.Version}}
 
 universal_binaries:
   - replace: true
@@ -33,14 +33,14 @@ universal_binaries:
 
 nfpms:
   - id: nfpms
-    package_name: "gos3backup"
+    package_name: "arclift"
     file_name_template: >-
       {{- trimsuffix .ConventionalFileName .ConventionalExtension -}}
       {{- if and (eq .Arm "6") (eq .ConventionalExtension ".deb") }}6{{ end -}}
       {{- if not (eq .Amd64 "v1")}}{{ .Amd64 }}{{ end -}}
       {{- .ConventionalExtension -}}
     vendor: Hibare.
-    homepage: https://github.com/hibare/GoS3Backup
+    homepage: https://github.com/hibare/arclift
     maintainer: Hibare <admin@hibare.in>.
     description: |-
       Software to perform daily backups to S3.
@@ -49,8 +49,8 @@ nfpms:
       - rpm
     bindir: /usr/bin
     contents:
-      - src: scripts/gos3backup.service
-        dst: /etc/systemd/system/gos3backup.service
+      - src: scripts/arclift.service
+        dst: /etc/systemd/system/arclift.service
     scripts:
       postinstall: "scripts/postinstall.sh"
       preremove: "scripts/preremove.sh"

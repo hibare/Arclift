@@ -1,11 +1,12 @@
 package constants
 
 const (
-	ProgramIdentifier     = "GoS3Backup"
-	DefaultDateTimeLayout = "20060102150405"
-	DefaultRetentionCount = 30
-	DefaultCron           = "0 0 * * *"
-	VersionCheckCron      = "0 0 * * *"
-	NotAvailable          = "N/A"
-	GithubOwner           = "hibare"
+	ProgramIdentifier       = "arclift"
+	ProgramPrettyIdentifier = "Arclift"
+	DefaultDateTimeLayout   = "20060102150405"
+	DefaultRetentionCount   = 30
+	DefaultCron             = "0 0 * * *"
+	VersionCheckCron        = "0 0 * * *"
+	NotAvailable            = "N/A"
+	GithubOwner             = "hibare"
 )

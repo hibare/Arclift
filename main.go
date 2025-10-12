@@ -1,9 +1,6 @@
-/*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-*/
 package main
 
-import "github.com/hibare/GoS3Backup/cmd"
+import "github.com/hibare/arclift/cmd"
 
 func main() {
 	cmd.Execute()
