@@ -7,12 +7,12 @@ import (
 	"time"
 
 	"github.com/go-co-op/gocron"
-	cmdBackup "github.com/hibare/GoS3Backup/cmd/backup"
-	"github.com/hibare/GoS3Backup/cmd/common"
-	cmdConfig "github.com/hibare/GoS3Backup/cmd/config"
-	"github.com/hibare/GoS3Backup/internal/config"
-	"github.com/hibare/GoS3Backup/internal/constants"
-	"github.com/hibare/GoS3Backup/internal/version"
+	cmdBackup "github.com/hibare/arclift/cmd/backup"
+	"github.com/hibare/arclift/cmd/common"
+	cmdConfig "github.com/hibare/arclift/cmd/config"
+	"github.com/hibare/arclift/internal/config"
+	"github.com/hibare/arclift/internal/constants"
+	"github.com/hibare/arclift/internal/version"
 	"github.com/spf13/cobra"
 )
 
@@ -21,7 +21,7 @@ var (
 )
 
 var RootCmd = &cobra.Command{
-	Use:     "GoS3Backup",
+	Use:     "arclift",
 	Short:   "Application to backup directories to S3",
 	Long:    "",
 	Version: version.CurrentVersion,

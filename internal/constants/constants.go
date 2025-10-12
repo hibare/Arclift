@@ -1,8 +1,8 @@
 package constants
 
 const (
-	ProgramIdentifier       = "gos3backup"
-	ProgramPrettyIdentifier = "GoS3Backup"
+	ProgramIdentifier       = "arclift"
+	ProgramPrettyIdentifier = "Arclift"
 	DefaultDateTimeLayout   = "20060102150405"
 	DefaultRetentionCount   = 30
 	DefaultCron             = "0 0 * * *"

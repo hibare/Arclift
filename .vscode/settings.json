@@ -25,6 +25,7 @@
     "preremove",
     "stretchr",
     "tolower",
-    "trimsuffix"
+    "trimsuffix",
+    "arclift"
   ]
 }

@@ -5,7 +5,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/hibare/GoS3Backup/internal/config"
+	"github.com/hibare/arclift/internal/config"
 	"github.com/spf13/cobra"
 )
 

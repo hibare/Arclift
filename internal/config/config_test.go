@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	commonLogger "github.com/hibare/GoCommon/v2/pkg/logger"
-	"github.com/hibare/GoS3Backup/internal/constants"
+	"github.com/hibare/arclift/internal/constants"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"gopkg.in/yaml.v3"

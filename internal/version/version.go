@@ -2,7 +2,7 @@ package version
 
 import (
 	"github.com/hibare/GoCommon/v2/pkg/version"
-	"github.com/hibare/GoS3Backup/internal/constants"
+	"github.com/hibare/arclift/internal/constants"
 )
 
 var (

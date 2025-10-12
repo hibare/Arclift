@@ -12,7 +12,7 @@ import (
 	commonLogger "github.com/hibare/GoCommon/v2/pkg/logger"
 	commonRuntime "github.com/hibare/GoCommon/v2/pkg/os/runtime"
 	commonUtils "github.com/hibare/GoCommon/v2/pkg/utils"
-	"github.com/hibare/GoS3Backup/internal/constants"
+	"github.com/hibare/arclift/internal/constants"
 	"github.com/spf13/viper"
 	"gopkg.in/yaml.v3"
 )

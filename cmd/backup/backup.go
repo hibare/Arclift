@@ -1,8 +1,8 @@
 package backup
 
 import (
-	"github.com/hibare/GoS3Backup/cmd/common"
-	"github.com/hibare/GoS3Backup/internal/backup"
+	"github.com/hibare/arclift/cmd/common"
+	"github.com/hibare/arclift/internal/backup"
 	"github.com/spf13/cobra"
 )
 

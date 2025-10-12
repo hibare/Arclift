@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 
 	commonS3 "github.com/hibare/GoCommon/v2/pkg/aws/s3"
-	"github.com/hibare/GoS3Backup/internal/config"
-	"github.com/hibare/GoS3Backup/internal/storage"
+	"github.com/hibare/arclift/internal/config"
+	"github.com/hibare/arclift/internal/storage"
 )
 
 // S3 implements the StorageIface for S3-compatible storage backends.

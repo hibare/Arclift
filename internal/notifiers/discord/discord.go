@@ -7,8 +7,8 @@ import (
 	"strconv"
 
 	"github.com/hibare/GoCommon/v2/pkg/notifiers/discord"
-	"github.com/hibare/GoS3Backup/internal/config"
-	"github.com/hibare/GoS3Backup/internal/constants"
+	"github.com/hibare/arclift/internal/config"
+	"github.com/hibare/arclift/internal/constants"
 )
 
 const (

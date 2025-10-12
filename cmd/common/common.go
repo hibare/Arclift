@@ -3,10 +3,10 @@ package common
 import (
 	"context"
 
-	"github.com/hibare/GoS3Backup/internal/backup"
-	"github.com/hibare/GoS3Backup/internal/config"
-	"github.com/hibare/GoS3Backup/internal/notifiers"
-	"github.com/hibare/GoS3Backup/internal/storage/s3"
+	"github.com/hibare/arclift/internal/backup"
+	"github.com/hibare/arclift/internal/config"
+	"github.com/hibare/arclift/internal/notifiers"
+	"github.com/hibare/arclift/internal/storage/s3"
 )
 
 func NewBackupManager(ctx context.Context, configPath string) (backup.BackupManagerIface, error) {

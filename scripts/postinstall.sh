@@ -1,6 +1,6 @@
 #!/bin/sh
 
-gos3backup config init \
+arclift config init \
 && systemctl daemon-reload \
-&& systemctl enable gos3backup.service \
-&& systemctl start gos3backup.service
+&& systemctl enable arclift.service \
+&& systemctl start arclift.service

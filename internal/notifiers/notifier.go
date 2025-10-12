@@ -7,8 +7,8 @@ import (
 	"log/slog"
 	"sync"
 
-	"github.com/hibare/GoS3Backup/internal/config"
-	"github.com/hibare/GoS3Backup/internal/notifiers/discord"
+	"github.com/hibare/arclift/internal/config"
+	"github.com/hibare/arclift/internal/notifiers/discord"
 )
 
 var (

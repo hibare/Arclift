@@ -9,9 +9,9 @@ import (
 	commonGPG "github.com/hibare/GoCommon/v2/pkg/crypto/gpg"
 	"github.com/hibare/GoCommon/v2/pkg/datetime"
 	commonFiles "github.com/hibare/GoCommon/v2/pkg/file"
-	"github.com/hibare/GoS3Backup/internal/config"
-	"github.com/hibare/GoS3Backup/internal/notifiers"
-	"github.com/hibare/GoS3Backup/internal/storage"
+	"github.com/hibare/arclift/internal/config"
+	"github.com/hibare/arclift/internal/notifiers"
+	"github.com/hibare/arclift/internal/storage"
 )
 
 var (

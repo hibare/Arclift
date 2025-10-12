@@ -1,12 +1,12 @@
 [Unit]
-Description=GoS3Backup Service
+Description=Arclift Backup Service
 After=network.target
 StartLimitIntervalSec=0
 
 [Service]
 Type=simple
 Restart=always
-ExecStart=/usr/bin/gos3backup
+ExecStart=/usr/bin/arclift
 
 [Install]
 WantedBy=multi-user.target

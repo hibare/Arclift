@@ -1,4 +1,4 @@
-module github.com/hibare/GoS3Backup
+module github.com/hibare/arclift
 
 go 1.25.2
 

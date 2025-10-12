@@ -3,6 +3,6 @@ volumes/
 *.log
 etc/
 *.drawio
-gos3backup
+arclift
 dist/
 .ignored/
