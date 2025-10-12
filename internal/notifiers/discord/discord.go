@@ -4,11 +4,13 @@ package discord
 import (
 	"context"
 	"fmt"
+	"log/slog"
 	"strconv"
 
 	"github.com/hibare/GoCommon/v2/pkg/notifiers/discord"
 	"github.com/hibare/arclift/internal/config"
 	"github.com/hibare/arclift/internal/constants"
+	"github.com/hibare/arclift/internal/version"
 )
 
 const (
@@ -60,6 +62,12 @@ func (d *Discord) NotifyBackupSuccess(ctx context.Context, directory string, tot
 		Content:    fmt.Sprintf("**Backup Successful** - *%s*", d.Cfg.Backup.Hostname),
 	}
 
+	if version.V.IsUpdateAvailable() {
+		if err := message.AddFooter(version.V.GetUpdateNotification()); err != nil {
+			slog.Error("error adding footer to message", "error", err)
+		}
+	}
+
 	return d.client.Send(ctx, &message)
 }
 
@@ -94,6 +102,13 @@ func (d *Discord) NotifyBackupFailure(ctx context.Context, directory string, tot
 		Username:   constants.ProgramPrettyIdentifier,
 		Content:    fmt.Sprintf("**Backup Failed** - *%s*", d.Cfg.Backup.Hostname),
 	}
+
+	if version.V.IsUpdateAvailable() {
+		if err := message.AddFooter(version.V.GetUpdateNotification()); err != nil {
+			slog.Error("error adding footer to message", "error", err)
+		}
+	}
+
 	return d.client.Send(ctx, &message)
 }
 
@@ -118,6 +133,13 @@ func (d *Discord) NotifyBackupDeleteFailure(ctx context.Context, key string, err
 		Username:   constants.ProgramPrettyIdentifier,
 		Content:    fmt.Sprintf("**Backup Deletion Failed** - *%s*", d.Cfg.Backup.Hostname),
 	}
+
+	if version.V.IsUpdateAvailable() {
+		if err := message.AddFooter(version.V.GetUpdateNotification()); err != nil {
+			slog.Error("error adding footer to message", "error", err)
+		}
+	}
+
 	return d.client.Send(ctx, &message)
 }
 
