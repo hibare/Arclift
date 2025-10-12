@@ -164,7 +164,7 @@ func (c *Config) getViper(ctx context.Context, path string) *viper.Viper {
 	}
 
 	// Environment variable binding.
-	v.SetEnvPrefix("ARCLIFT")
+	v.SetEnvPrefix(strings.ToUpper(constants.ProgramIdentifier))
 	v.SetEnvKeyReplacer(strings.NewReplacer(`.`, `_`, `-`, `_`))
 	v.AutomaticEnv()
 
