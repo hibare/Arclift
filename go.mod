@@ -5,7 +5,7 @@ go 1.25.2
 require (
 	github.com/go-co-op/gocron v1.37.0
 	github.com/hibare/GoCommon/v2 v2.28.0
-	github.com/jedib0t/go-pretty/v6 v6.6.9
+	github.com/jedib0t/go-pretty/v6 v6.7.0
 	github.com/spf13/cobra v1.10.1
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
