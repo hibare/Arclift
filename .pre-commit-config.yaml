@@ -18,3 +18,7 @@ repos:
       - id: go-mod-tidy
       - id: go-test-mod
       - id: golangci-lint-mod
+  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: 3.0.0
+    hooks:
+      - id: shellcheck
